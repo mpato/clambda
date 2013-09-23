@@ -14,8 +14,8 @@ and Parameters = EmptyParameters
     	       | Parameter of string * Type * Parameters
 
 and ListTerm = Nil
-    	     | ListElem Term * ListTerm
-	     | ListAssign Term * Term * ListTerm
+    	     | ListElem of Term * ListTerm
+	     | ListAssign of Term * Term * ListTerm
 
 and RefTerm = RefInitValue of Term
     	    | RefInitType of Type
@@ -23,8 +23,8 @@ and RefTerm = RefInitValue of Term
 and Term = Let of string * Term * Term
     	 | If of Term * Term * Term
 	 | Exp of Op * Term * Term
-	 | Assign string * Term
-	 | ListAssign string * Term
+	 | Assign of string * Term
+	 | ListRefAssign of string * Term
 	 | ListReplace of Term * Term
 	 | Func of Type * Parameters * Term
 	 | CFunc of Type * Parameters * string
