@@ -5,7 +5,8 @@ datatype Type = Integer
 	      | UniRef of Type
 	      | Arrow of Type * Type
 	      | Closure of Type * Type
-	      | UClosure of Type * Type
+	      | UniClosure of Type * Type
+	      | NoType
 
 and Op = Add 
        | Mul 
@@ -16,19 +17,19 @@ and Parameters = EmptyParameters
     	       | Parameter of string * Type * Parameters
 
 and ListTerm = Nil
-    	     | ListElem of Term * ListTerm
-	     | ListAssign of Term * Term * ListTerm
+    	     | ListElem of TypedTerm * ListTerm
+	     | ListAssign of TypedTerm * TypedTerm * ListTerm
 
-and RefTerm = RefInitValue of Term
+and RefTerm = RefInitValue of TypedTerm
     	    | RefInitType of Type
 
-and Term = Let of string * Term * Term
-    	 | If of Term * Term * Term
-	 | Exp of Op * Term * Term
-	 | Assign of string * Term
-	 | ListRefAssign of string * Term
-	 | ListReplace of Term * Term
-	 | Func of Type * Parameters * Term
+and Term = Let of Type * string * TypedTerm * TypedTerm
+    	 | If of TypedTerm * TypedTerm * TypedTerm
+	 | Exp of Op * TypedTerm * TypedTerm
+	 | Assign of string * TypedTerm
+	 | ListRefAssign of string * TypedTerm
+	 | ListReplace of TypedTerm * TypedTerm
+	 | Func of Type * Parameters * TypedTerm
 	 | CFunc of Type * Parameters * string
 	 | IntegerValue of int
 	 | RealValue of real
@@ -37,3 +38,5 @@ and Term = Let of string * Term * Term
 	 | URefValue of RefTerm
 	 | Var of string
 	 | EmptyTerm
+
+withtype TypedTerm = Type * Term
