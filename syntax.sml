@@ -4,6 +4,8 @@ datatype Type = Integer
 	      | Ref of Type
 	      | UniRef of Type
 	      | Arrow of Type * Type
+	      | Closure of Type * Type
+	      | UClosure of Type * Type
 
 and Op = Add 
        | Mul 
